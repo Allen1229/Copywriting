@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文案優化工作室 | ALN-X</title>
+  <meta name="description" content="ALN-X 文案優化工作室 — 輸入原始文案，AI 為你量身打造高轉換率文案。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 背景效果 -->
+  <div class="stars-bg"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- 導覽列 -->
+  <header class="glass-header">
+    <div><span class="logo-text">ALN-<span class="accent">X</span></span></div>
+    <div class="header-actions">
+      <button class="btn-icon" id="settings-toggle" title="API 設定">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-container">
+    <!-- 頁面標題 -->
+    <section class="page-hero">
+      <h1>文案優化工作室</h1>
+      <p>輸入原始文案，AI 為你量身打造高轉換率文案</p>
+    </section>
+
+    <!-- 設定面板 -->
+    <div class="settings-panel" id="settings-panel" style="display:none;">
+      <h2>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/><path d="M17 12h.01"/><path d="M7 12h.01"/></svg>
+        API 設定
+      </h2>
+      <div class="settings-group">
+        <label class="field-label">Gemini API Key</label>
+        <input type="password" id="api-key-input" class="field-input" placeholder="輸入你的 Gemini API Key...">
+        <p style="color:var(--text-dim);font-size:0.75rem;margin-top:8px;">金鑰僅儲存於瀏覽器 localStorage，不會外流。</p>
+      </div>
+      <button class="btn-settings-save" id="save-settings">儲存設定</button>
+    </div>
+
+    <!-- 兩欄主體 -->
+    <div class="two-col">
+      <!-- 左側：輸入面板 -->
+      <div class="glass-panel">
+        <h2 class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <span class="step-num">STEP 1</span>
+          輸入與設定
+        </h2>
+
+        <div class="input-section space-y-lg">
+          <!-- 原始文案 -->
+          <div>
+            <label>原始文案</label>
+            <textarea id="input-text" class="text-input" placeholder="在此貼上你想要優化的文案..."></textarea>
+          </div>
+
+          <!-- 語氣選擇 -->
+          <div>
+            <label>語氣風格</label>
+            <div class="chip-group">
+              <button class="chip-btn active" data-group="tone" data-value="professional">專業嚴謹</button>
+              <button class="chip-btn" data-group="tone" data-value="warm">溫暖感性</button>
+              <button class="chip-btn" data-group="tone" data-value="humorous">幽默俏皮</button>
+              <button class="chip-btn" data-group="tone" data-value="aggressive">強烈煽動</button>
+              <button class="chip-btn" data-group="tone" data-value="concise">簡潔有力</button>
+              <button class="chip-btn" data-group="tone" data-value="premium">高級質感</button>
+            </div>
+          </div>
+
+          <!-- 開始按鈕 -->
+          <button class="btn-primary" id="btn-optimize" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            開始優化文案
+          </button>
+        </div>
+      </div>
+
+      <!-- 右側：結果面板 -->
+      <div class="glass-panel result-panel">
+        <h2 class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="step-num">STEP 2</span>
+          優化結果
+        </h2>
+
+        <!-- 空狀態 -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <p class="empty-title">等待 AI 優化</p>
+          <p class="empty-sub">輸入文案並選擇語氣後開始</p>
+        </div>
+
+        <!-- 載入中 -->
+        <div class="loading-state" id="loading-state" style="display:none;">
+          <div class="loading-spinner"></div>
+          <p class="loading-text">AI 正在優化你的文案...</p>
+          <p class="loading-sub">分析結構 → 校準語氣 → 精煉文字</p>
+        </div>
+
+        <!-- 結果內容 -->
+        <div class="result-content" id="result-content" style="display:none;">
+          <div class="result-meta" id="result-meta"></div>
+          <div class="result-body" id="result-body"></div>
+          <div class="result-actions">
+            <button class="btn-clear" id="btn-clear" title="清除">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+            <button class="btn-primary btn-copy" id="btn-copy">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              複製優化文案
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="glass-footer">
+    <p>&copy; 2026 ALN-X Ecosystem. Powered by Advanced Agentic Coding.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

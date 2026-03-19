@@ -102,6 +102,7 @@ function buildPrompt(text) {
     aggressive: '強烈煽動 — 語氣緊迫、利益導向、行動力強。適合導購頁面或促銷活動。',
     concise: '簡潔有力 — 每一句都精準到位，沒有廢話。適合公告、通知或快節奏的溝通場景。',
     premium: '高級質感 — 語調沉穩內斂、用字精緻考究、營造品牌高級感。適合精品、奢華品牌或高端服務。',
+    explanatory: '白話教學 — 語氣像老師在帶領學生，用最簡單直白的語言解釋事物。適合產品說明、教學引導或複雜內容的科普。',
   };
 
   return `你是一位資深華語文案編輯。請根據以下規則優化文案：
@@ -173,6 +174,7 @@ function displayResult(text) {
     aggressive: '強烈煽動',
     concise: '簡潔有力',
     premium: '高級質感',
+    explanatory: '白話教學',
   };
 
   resultMeta.innerHTML = `<span class="result-tag tone">${toneLabels[state.tone]}</span>`;

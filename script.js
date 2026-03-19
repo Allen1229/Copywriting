@@ -179,20 +179,38 @@ function displayResult(text) {
 
   resultMeta.innerHTML = `<span class="result-tag tone">${toneLabels[state.tone]}</span>`;
 
-  // 簡易 Markdown 渲染
-  let html = text
+  const [mainContent, ...explanationParts] = text.split('\n---');
+  const explanation = explanationParts.join('\n---').trim();
+
+  // 渲染為 HTML
+  const mainHtml = renderMarkdown(mainContent.trim());
+  let finalHtml = mainHtml;
+
+  if (explanation) {
+    const explanationHtml = renderMarkdown(explanation);
+    finalHtml += `<div class="result-explanation"><strong>優化說明：</strong><br>${explanationHtml}</div>`;
+  }
+
+  resultBody.innerHTML = finalHtml;
+  
+  // 儲存待複製的純文字（不含說明）
+  resultBody.dataset.copyText = mainContent.trim();
+
+  resultContent.style.animation = 'fadeIn 0.3s ease-out';
+}
+
+// ── Markdown 渲染輔助 ──
+function renderMarkdown(text) {
+  return text
     .replace(/### (.+)/g, '<h3>$1</h3>')
     .replace(/## (.+)/g, '<h3>$1</h3>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br>');
-
-  resultBody.innerHTML = html;
-  resultContent.style.animation = 'fadeIn 0.3s ease-out';
 }
 
 // ── 複製 ──
 async function handleCopy() {
-  const text = resultBody.innerText;
+  const text = resultBody.dataset.copyText;
   if (!text) return;
 
   try {

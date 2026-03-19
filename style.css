@@ -438,6 +438,19 @@ body {
 /* ── 動畫 ── */
 @keyframes fadeIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
+.result-explanation {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border-top: 1px dashed var(--border-color);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.result-explanation h3 {
+  color: var(--text-dim) !important;
+  opacity: 0.8;
+  border-bottom-color: rgba(255,255,255,0.05) !important;
+}
+
 /* ── 間距 ── */
 .space-y-lg > * + * { margin-top: 24px; }
 
